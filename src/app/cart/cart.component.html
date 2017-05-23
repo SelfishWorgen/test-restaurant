@@ -1,0 +1,28 @@
+<div class="cart-wrap" [class.active]="active">
+  <div class="container">
+    <table class="table table-responsive table-hover">
+      <thead>
+      <tr>
+        <th>Название</th>
+        <th>Категория</th>
+        <th>Цена</th>
+        <th>Убрать</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let dish of cart">
+        <td>{{dish.name}}</td>
+        <td>{{dish.category}}</td>
+        <td>{{dish.value | currency : "UAH" : 0}}</td>
+        <td><button (click)="remove(dish)" class="btn btn-danger"><span class="glyphicon glyphicon-remove-sign"></span></button></td>
+      </tr>
+      <tr>
+        <th>Итого:</th>
+        <th></th>
+        <th>{{getSumm() | currency : "UAH"}}</th>
+        <th></th>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,27 @@
+<div class="header">
+  <button (click)="cart.length == 0 ? false : showCart = !showCart" [class.disabled]="cart.length == 0" class="btn btn-success"><span class="glyphicon glyphicon-shopping-cart"></span> Моя корзина: {{ getSumm() | currency : "UAH" : 0}}</button>
+</div>
+<div class="content">
+  <div class="container">
+    <table class="table table-responsive table-hover">
+      <thead>
+        <tr>
+          <th (click)="sortBy('name')">Название<span *ngIf="sorting == 'name'" class="glyphicon {{sortingAsc ? 'glyphicon-sort-by-attributes-alt' : 'glyphicon-sort-by-attributes'}}"></span></th>
+          <th (click)="sortBy('category')">Категория<span *ngIf="sorting == 'category'" class="glyphicon {{sortingAsc ? 'glyphicon-sort-by-attributes-alt' : 'glyphicon-sort-by-attributes'}}"></span></th>
+          <th (click)="sortBy('value')">Цена<span *ngIf="sorting == 'value'" class="glyphicon {{sortingAsc ? 'glyphicon-sort-by-attributes-alt' : 'glyphicon-sort-by-attributes'}}"></span></th>
+          <th>В корзину</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let dish of dishes | orderBy : sorting : sortingAsc">
+          <td>{{dish.name}}</td>
+          <td>{{dish.category}}</td>
+          <td>{{dish.value | currency : "UAH" : 0}}</td>
+          <td><button (click)="toCart(dish)" class="btn {{!checkInCart(dish) ? 'btn-success' : 'btn-danger'}}"><span class="glyphicon {{checkInCart(dish) ? 'glyphicon-remove-sign' : 'glyphicon-shopping-cart'}}"></span></button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<cart [cart]="cart" [active]="showCart"></cart>
+
